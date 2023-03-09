@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FlipTree</string>
+    <string name="fliptree_machine_test">FlipTree Machine Test</string>
+    <string name="search">Search</string>
+    <string name="full_screen_image">Full Screen Image</string>
+    <string name="image">image</string>
+    <string name="fliptree">FlipTree</string>
+</resources>
