@@ -2,6 +2,8 @@ package com.shaya.fliptree.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.shaya.fliptree.R
@@ -24,7 +26,13 @@ class DetailActivity : AppCompatActivity() {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        val imageItem = intent?.getParcelableExtra(INTENT_KEY_IMAGE_ITEM) as? ImageItem
+        @Suppress("DEPRECATION")
+        val imageItem = if (VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent?.getParcelableExtra(INTENT_KEY_IMAGE_ITEM, ImageItem::class.java)
+        } else {
+            intent?.getParcelableExtra(INTENT_KEY_IMAGE_ITEM) as? ImageItem
+        }
+
         imageItem?.let {
             binding.ivImageDetail.loadImageByUrl(this, it.image.orEmpty())
         }

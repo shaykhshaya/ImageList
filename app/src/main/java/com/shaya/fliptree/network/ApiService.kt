@@ -1,5 +1,6 @@
 package com.shaya.fliptree.network
 
+import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.shaya.fliptree.BaseApplication
 import com.shaya.fliptree.response.ImageItem
@@ -18,7 +19,14 @@ private val moshi = Moshi.Builder()
     .build()
 
 private val client: OkHttpClient = OkHttpClient.Builder()
-    .addInterceptor(ChuckerInterceptor(BaseApplication.instance.applicationContext))
+    .addInterceptor(
+        ChuckerInterceptor.Builder(BaseApplication.instance.applicationContext)
+            .collector(ChuckerCollector(BaseApplication.instance.applicationContext))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
+    )
     .build()
 
 private val retrofit = Retrofit.Builder()
